@@ -31,3 +31,10 @@ int count_clipping(double *values, int n, double limit) {
 int check_compliance(double rms) {
     return (rms >= 207 && rms <= 253);
 }
+double compute_dc_offset(double *values, int n) {
+    double sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += values[i];
+    }
+    return sum / n;
+}

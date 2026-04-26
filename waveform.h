@@ -16,4 +16,6 @@ double compute_rms(double *values, int n);
 double compute_peak_to_peak(double *values, int n);
 int count_clipping(double *values, int n, double limit);
 int check_compliance(double rms);
+double compute_dc_offset(double *values, int n);
+
 #endif //POWER_ANALYSER_WAVEFORM_H
