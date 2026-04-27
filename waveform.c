@@ -38,3 +38,14 @@ double compute_dc_offset(double *values, int n) {
     }
     return sum / n;
 }
+unsigned char get_status(int clipping, int compliant) {
+    unsigned char status = 0;
+
+    if (clipping > 0)
+        status |= 1 << 0; // bit 0 = clipping
+
+    if (!compliant)
+        status |= 1 << 1; // bit 1 = out of tolerance
+
+    return status;
+}
