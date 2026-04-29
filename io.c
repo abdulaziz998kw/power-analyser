@@ -39,3 +39,50 @@ WaveformSample* load_csv(const char *filename, int *count) {
     *count = i;
     return data;
 }
+
+void write_results(const char *filename,
+                   double rmsA, double rmsB, double rmsC,
+                   double p2pA, double p2pB, double p2pC,
+                   double dcA, double dcB, double dcC,
+                   int clipA, int clipB, int clipC,
+                   double freq, double pf, double thd,
+                   double stdA, double stdB, double stdC,
+                   unsigned char statusA,
+                   unsigned char statusB,
+                   unsigned char statusC) {
+
+    FILE *file = fopen(filename, "w");
+
+    if (!file) {
+        printf("Error writing results file\n");
+        return;
+    }
+
+    fprintf(file, "=== Power Quality Analysis ===\n\n");
+
+    fprintf(file, "RMS Voltage:\n");
+    fprintf(file, "A: %.2f (%s)\n", rmsA, check_compliance(rmsA) ? "OK" : "OUT");
+    fprintf(file, "B: %.2f (%s)\n", rmsB, check_compliance(rmsB) ? "OK" : "OUT");
+    fprintf(file, "C: %.2f (%s)\n\n", rmsC, check_compliance(rmsC) ? "OK" : "OUT");
+
+    fprintf(file, "Peak-to-Peak:\nA: %.2f\nB: %.2f\nC: %.2f\n\n",
+            p2pA, p2pB, p2pC);
+
+    fprintf(file, "DC Offset:\nA: %.5f\nB: %.5f\nC: %.5f\n\n",
+            dcA, dcB, dcC);
+
+    fprintf(file, "Clipping Count:\nA: %d\nB: %d\nC: %d\n\n",
+            clipA, clipB, clipC);
+
+    fprintf(file, "Average Frequency: %.3f Hz\n", freq);
+    fprintf(file, "Average Power Factor: %.3f\n", pf);
+    fprintf(file, "Average THD: %.3f %%\n\n", thd);
+
+    fprintf(file, "Standard Deviation:\nA: %.2f\nB: %.2f\nC: %.2f\n\n",
+            stdA, stdB, stdC);
+
+    fprintf(file, "Status Flags (bitmask):\nA: %u\nB: %u\nC: %u\n",
+            statusA, statusB, statusC);
+
+    fclose(file);
+}
