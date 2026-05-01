@@ -49,3 +49,23 @@ unsigned char get_status(int clipping, int compliant) {
 
     return status;
 }
+
+double compute_mean(double *values, int n) {
+    double sum = 0;
+    for (int i = 0; i < n; i++) {
+        sum += values[i];
+    }
+    return sum / n;
+}
+
+/* Merit feature */
+double compute_std_dev(double *values, int n) {
+    double mean = compute_mean(values, n);
+    double sum = 0;
+
+    for (int i = 0; i < n; i++) {
+        sum += pow(values[i] - mean, 2);
+    }
+
+    return sqrt(sum / (n - 1));  // sample standard deviation
+}

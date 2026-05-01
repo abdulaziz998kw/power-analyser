@@ -18,4 +18,6 @@ int count_clipping(double *values, int n, double limit);
 int check_compliance(double rms);
 double compute_dc_offset(double *values, int n);
 unsigned char get_status(int clipping, int compliant);
+double compute_mean(double *values, int n);
+double compute_std_dev(double *values, int n);
 #endif //POWER_ANALYSER_WAVEFORM_H

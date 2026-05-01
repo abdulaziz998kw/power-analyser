@@ -11,6 +11,7 @@ int main(int argc, char *argv[]) {
 
     int n=0;
     WaveformSample *data = load_csv(argv[1], &n);
-    printf("data read number : %d\n",n);
+
+    
     return 0;
 }
